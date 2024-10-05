@@ -39,10 +39,6 @@ const Header = () => {
                 name:"Thức ăn nhanh",
                 path:"",
             },
-            {
-                name:"Thịt",
-                path:"",
-            },
         ]
         },
         {
@@ -103,13 +99,36 @@ const Header = () => {
             </div>
         </div>
         <div className="row">
-        <div className="container">
+        <div className="container" style={{display:"flex"}}>
             <div className="col-xl-3">
                 <div className="header_logo">
                     <h1>TAISHOP</h1>
                 </div>
             </div>
-            <div className="col-xl-6">MENU</div>
+            <div className="col-xl-6">
+                <nav className="header_menu">
+                    <ul>
+                    {
+                        menus?.map((menu, menuKey) => (
+                            <li className={menuKey === 0 ? "active" : ""} key={menuKey}>
+                            <Link to={menu?.path}>{menu?.name}</Link>
+                            {
+                                menu.child && (
+                                    <ul className="header_menu_dropdown">
+                                    {menu.child.map((childItem ,childKey) => (
+                                        <li key={`${menuKey}-${childKey}`}>
+                                            <Link to={childItem.path}>{childItem.name}</Link>
+                                        </li>
+                                    ))}   
+                                    </ul>
+                                )
+                            }
+                            </li>
+                        ) ) 
+                    }                       
+                    </ul>
+                </nav>
+            </div>
             <div className="col-xl-3">
                 <div className="header_cart">
                     <div className="header_cart_price">

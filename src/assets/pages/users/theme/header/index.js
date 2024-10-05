@@ -1,4 +1,4 @@
-import {memo} from "react";
+import {memo, useState} from "react";
 import "./style.scss";
 import { AiOutlineFacebook } from "react-icons/ai";
 import { FaInstagram } from "react-icons/fa";
@@ -6,10 +6,55 @@ import { CiLinkedin } from "react-icons/ci";
 import { AiOutlineGlobal } from "react-icons/ai";
 import { AiOutlineUser } from "react-icons/ai";
 import { Link } from "react-router-dom";
+import {ROUTERS} from "../../../../../utils/router";
 import { CiMail } from "react-icons/ci";
 import { formatter } from "../../../../../utils/fomater";
+import { AiOutlineShoppingCart } from "react-icons/ai";
 
 const Header = () => {
+
+    const [menus, setMenus] = useState([
+        {
+            name:"Trang chủ",
+            path: ROUTERS.USER.HOME,
+        },
+        {
+            name:"Cửa hàng",
+            path: ROUTERS.USER.PRODUCTS,
+        },
+        {
+            name:"Sản phẩm",
+            path: ROUTERS.USER.HOME,
+            isShowSubmenu:false,
+            child:[
+                {
+                name:"Thịt",
+                path:"",
+            },
+            {
+                name:"Rau củ",
+                path:"",
+            },
+            {
+                name:"Thức ăn nhanh",
+                path:"",
+            },
+            {
+                name:"Thịt",
+                path:"",
+            },
+        ]
+        },
+        {
+            name:"Bài viết",
+            path: ROUTERS.USER.HOME,
+        },
+        {
+            name:"Liên hệ",
+            path: ROUTERS.USER.HOME,
+        },
+    ])
+
     return (
         <>
         <div className="header_top">
@@ -59,8 +104,25 @@ const Header = () => {
         </div>
         <div className="row">
         <div className="container">
-            <div className="col-lg-3 col-xl-3">
-                LOGOS
+            <div className="col-xl-3">
+                <div className="header_logo">
+                    <h1>TAISHOP</h1>
+                </div>
+            </div>
+            <div className="col-xl-6">MENU</div>
+            <div className="col-xl-3">
+                <div className="header_cart">
+                    <div className="header_cart_price">
+                        <span>{formatter(100000)}</span>
+                    </div>
+                    <ul>
+                        <li>
+                            <Link to="#">
+                            <AiOutlineShoppingCart /> <span>5</span>
+                            </Link>
+                        </li>
+                    </ul>
+                </div>
             </div>
         </div>     
         </div>   

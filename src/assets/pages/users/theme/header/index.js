@@ -1,10 +1,12 @@
 import {memo, useState} from "react";
 import "./style.scss";
-import { AiOutlineFacebook } from "react-icons/ai";
+import { AiOutlineFacebook, AiOutlineInstagram, AiOutlineLinkedin } from "react-icons/ai";
 import { FaInstagram } from "react-icons/fa";
 import { CiLinkedin } from "react-icons/ci";
 import { AiOutlineGlobal } from "react-icons/ai";
 import { AiOutlineUser } from "react-icons/ai";
+import { AiOutlineMenu } from "react-icons/ai";
+import { AiOutlinePhone } from "react-icons/ai";
 import { Link } from "react-router-dom";
 import {ROUTERS} from "../../../../../utils/router";
 import { CiMail } from "react-icons/ci";
@@ -12,8 +14,9 @@ import { formatter } from "../../../../../utils/fomater";
 import { AiOutlineShoppingCart } from "react-icons/ai";
 
 const Header = () => {
-
-    const [menus, setMenus] = useState([
+    const[isShowCategories, setShowCategories] = useState(true);
+    const[isShowHumberger, setShowHumberger] = useState(false);
+    const [menus] = useState([
         {
             name:"Trang chủ",
             path: ROUTERS.USER.HOME,
@@ -53,6 +56,69 @@ const Header = () => {
 
     return (
         <>
+        <div 
+        className={`humberger_menu_overlay${
+            isShowHumberger ? "active" : ""
+        }`}
+        onClick={() => setShowHumberger(false)}
+        > 
+        </div>
+        <div className={`humberger_menu_wrapper${
+            isShowHumberger ? "show" : ""
+        }`}
+        >
+            <div className="header_logo">
+                <h1>TAISHOP</h1>
+            </div>
+            <div className="humberger_menu_cart">
+                <ul>
+                    <li>
+                        <Link to={""}>
+                            <AiOutlineShoppingCart /> <span>1</span>
+                        </Link>
+                    </li>
+                </ul>
+                <div className="header_cart_price">
+                    Giỏ hàng : <span>ƠP{formatter(100000)}</span>
+                </div>
+            </div>
+            <div className="humberger_menu_widget">
+                <div className="header_top_right_auth">
+                <Link to={""}>
+                    <AiOutlineUser />Đăng nhập
+                </Link>
+                 </div>
+             </div>
+             <div className="humberger_menu_nav">
+                <ul>
+                    <li>Menu Item</li>
+                </ul>
+             </div>
+             <div className="header_top_right_social">
+                    <Link to={""}>
+                        <AiOutlineFacebook />
+                    </Link>
+                    <Link to={""}>
+                        <AiOutlineInstagram />
+                    </Link>
+                    <Link to={""}>
+                        <AiOutlineLinkedin />
+                    </Link>
+                    <Link to={""}>
+                        <AiOutlineGlobal />
+                    </Link>
+             </div>
+             <div className="humberger_menu_contact">
+                <ul>
+                    <li>
+                        <i className="fa fa-envelope">lehoanganhtai1115@gmail.com</i>
+                    </li>
+                    <li>
+                        Miễn phí đơn từ {formatter(200000)}
+                    </li>
+                </ul>
+             </div>
+        </div>
         <div className="header_top">
             <div className="container">
             <div className="row">
@@ -97,15 +163,15 @@ const Header = () => {
                 </div>
             </div>
             </div>
-        </div>
+        </div> 
+        <div className="container">
         <div className="row">
-        <div className="container" style={{display:"flex"}}>
-            <div className="col-xl-3">
+        <div className="col-lg-3">
                 <div className="header_logo">
                     <h1>TAISHOP</h1>
                 </div>
             </div>
-            <div className="col-xl-6">
+            <div className="col-lg-6">
                 <nav className="header_menu">
                     <ul>
                     {
@@ -129,7 +195,7 @@ const Header = () => {
                     </ul>
                 </nav>
             </div>
-            <div className="col-xl-3">
+            <div className="col-lg-3">
                 <div className="header_cart">
                     <div className="header_cart_price">
                         <span>{formatter(100000)}</span>
@@ -142,12 +208,65 @@ const Header = () => {
                         </li>
                     </ul>
                 </div>
+                <div className="humgberger_open">
+                    <AiOutlineMenu onClick={() => 
+                        setShowHumberger(true)
+                    }></AiOutlineMenu>
+                </div>
             </div>
-        </div>     
-        </div>   
-        </>
+        </div>    
+        </div>  
+        <div className="container">
+            <div className="row hero_categories_container">
+                <div className="col-lg-3 col-sm-12 col-xs-12 col-md-12 hero_categories">
+                    <div className="hero_categories_all" onClick={() => setShowCategories(!isShowCategories)}>
+                    <AiOutlineMenu />
+                    Danh sách sản phẩm
+                    </div>
+                    {isShowCategories && (
+                    <ul className={isShowCategories ? "" : "hidden"}>
+                        <li><Link to={""}>Thịt tươi</Link></li>
+                        <li><Link to={""}>Rau củ</Link></li>
+                        <li><Link to={""}>Nước trái cây</Link></li>
+                        <li><Link to={""}>Trái cây</Link></li>
+                        <li><Link to={""}>Hải sản</Link></li>
+                    </ul>
+                    )
+                    }
 
-        
+                </div>
+                <div className="col-lg-9 col-sm-12 col-xs-12 col-md-12 hero_search_container">
+                    <div className="hero_search">
+                        <div className="hero_search_form">
+                        <form>
+                            <input type="text" placeholder="Bạn đang tìm gì?"></input>
+                            <button type="submit">Tìm kiếm</button>
+                        </form>
+                        </div>
+                        <div className="hero_search_phone">
+                            <div className="hero_search_phone_icon">
+                                 <AiOutlinePhone />
+                            </div>
+                            <div className="hero_search_phone_text">
+                                 <p>076-305-8366</p>
+                                 <span>Hổ trợ 24/7</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div className="hero_item">
+                        <div className="hero_text">
+                            <span>Trái cây tươi</span>
+                            <h2>Rau quả <br /> sạch 100%</h2>
+                            <p>Miễn phí giao hàng tận nơi</p>
+                            <Link to="" className="primary-btn">
+                                Mua ngay
+                            </Link>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>    
+        </>      
     )
           
 };

@@ -29,6 +29,10 @@ body {
     flex: 0 0 25%;
     max-width: 25%;
 }
+.col-lg-9{
+    flex: 0 0 75%;
+    max-width: 75%;
+}
 .col-lg-6{
     flex: 0 0 50%;
     max-width: 50%;
@@ -45,12 +49,22 @@ body {
     height: 100%;
 }
 @include Responsive($MEDIUM_DEVICE){
+    .container{
+        max-width: 960px;
+    }
     .col-lg-3{
         flex:0 0 25%;
         max-width: 25%;    
     }
+    .col-xl-12{
+        flex:0 0 100%;
+        max-width: 100%;    
+    }
 }
 @include Responsive($TABLET_DEVICE){
+    .container{
+        max-width: 720px;
+    }
     .col-md-6{
         flex:0 0 50%;
         max-width: 50%;    
@@ -71,6 +85,9 @@ body {
     }
 }
 @include Responsive($WIDE_MOBILE){
+    .container{
+        max-width: 540px;
+    }
     .col-sm-6{
         flex:0 0 50%;
         max-width: 50%;    
@@ -81,6 +98,9 @@ body {
     }
 }
 @include Responsive($SMALL_DEVICES){
+    .container{
+        max-width: 350px;
+    }
     .col-xs-12{
         flex:0 0 100%;
         max-width: 100%;    

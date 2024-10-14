@@ -1,4 +1,4 @@
-import {memo} from "react";
+import {memo, useState} from "react";
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
 import "./style.scss"
@@ -7,8 +7,19 @@ import cat2Img from "./imgslide/cat-2.jpg";
 import cat3Img from "./imgslide/cat-3.jpg";
 import cat4Img from "./imgslide/cat-4.png";
 import cat5Img from "./imgslide/cat-5.png";
+import banh1Img from "./imgslide/banhbonglan.png";
+import sua1Img from "./imgslide//suadac.jpg";
+import bia1Img from "./imgslide/heniken.jpg";
+import mi1Img from "./imgslide/mikoreno.jpg";
+import mi2Img from "./imgslide/mi3mien.jpg";
+import mi3Img from "./imgslide/mihaohao.jpg";
+import mi4Img from "./imgslide/mioppa.jpg";
+import duahau1Img from "./imgslide/dauhau.jpg";
+import xucxich1Img from "./imgslide/xucxich.jpg";
+import dauphong1Img from "./imgslide/dauphongphomai.jpg";
 import feature1Img from "./imgslide/featured-1.jpg";
 import { Tab, TabList, TabPanel, Tabs } from "react-tabs";
+import { Link } from "react-router-dom";
 
 
 const HomePage = () => {
@@ -62,18 +73,63 @@ const HomePage = () => {
               price : 20000,
             },
             {
-              img:feature1Img,
-              name:"Chuối",
+              img:sua1Img,
+              name:"Sữa đặc",
+              price : 20000,
+            },
+            {
+              img:banh1Img,
+              name:"Bánh bông lan",
+              price : 20000,
+            },
+            {
+              img:bia1Img,
+              name:"Bia Heniken",
+              price : 20000,
+            },
+            {
+              img:mi1Img,
+              name:"Mì Koreno",
+              price : 20000,
+            },
+            {
+              img:xucxich1Img,
+              name:"Xúc xích",
+              price : 20000,
+            },
+            {
+              img:dauphong1Img,
+              name:"Đậu phộng phô mai",
+              price : 20000,
+            },
+            {
+              img:duahau1Img,
+              name:"Dưa hấu",
               price : 20000,
             },
           ],
         },
         freshMeat:{
-          title:"Thịt tươi",
+          title:"Mì ăn liền",
           products:[
             {
-              img:"",
-              name:"Thịt bò tươi",
+              img:mi1Img,
+              name:"Mì Koreno",
+              price : 20000,
+            },
+            {
+              img:mi2Img,
+              name:"Mì 3 miền",
+              price : 20000,
+            },
+            {
+              img:mi3Img,
+              name:"Mì Hảo Hảo",
+              price : 20000,
+            },
+            {
+              img:mi4Img,
+              name:"Mì Oppa",
               price : 20000,
             },
           ],
@@ -85,11 +141,19 @@ const HomePage = () => {
         const tabPanels = [];
 
         Object.keys(data).forEach((key, index) => {
-          tabList.push(<Tab  key={index}>{data[key].title}</Tab>);
+          tabList.push(<Tab key={index}>{data[key].title}</Tab>);
+          
 
           const tabPanel = [];
           data[key].products.forEach((item, j) => {
-            tabPanel.push(<div key={j}>{item.name}</div>)
+            tabPanel.push(
+           // <div key={j}>{item.name}</div>
+           <Link key={j} className="product-item">
+            <img src={item.img} alt={item.name}></img>
+            <p>{item.name}</p>
+            <p className="product-price">{item.price}</p>
+           </Link>
+            )
           });
           tabPanels.push(tabPanel);
         });
@@ -98,7 +162,7 @@ const HomePage = () => {
         <TabList>{tabList}</TabList>
         {tabPanels.map((item, key) =>(
         <TabPanel key={key}>
-          <div className="row">{item}</div>
+          <div className="row product-grid">{item}</div>
         </TabPanel>
         ))}
       </Tabs>

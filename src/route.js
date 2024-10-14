@@ -15,6 +15,10 @@ const renderUserRouter = () => {
         path: ROUTERS.USER.PROFILE,
         Component:<ProfilePage />,
     },
+    {
+        path: ROUTERS.USER.PRODUCTS,
+        Component:<ProfilePage />,
+    },
     ];
     return (
         <MasterLayout>

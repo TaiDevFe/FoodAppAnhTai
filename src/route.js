@@ -4,6 +4,7 @@ import { Route, Routes } from "react-router-dom";
 import HomePage from "./assets/pages/users/homePage";
 import MasterLayout from "./assets/pages/users/theme/masterLayout";
 import ProfilePage from "./assets/pages/users/profilePage";
+import ProductsPage from "./assets/pages/users/productsPage";
 
 
 const renderUserRouter = () => {
@@ -17,7 +18,7 @@ const renderUserRouter = () => {
     },
     {
         path: ROUTERS.USER.PRODUCTS,
-        Component:<ProfilePage />,
+        Component:<ProductsPage/>,
     },
     ];
     return (

@@ -1,4 +1,4 @@
-import {memo, useState} from "react";
+import {memo, useEffect, useState} from "react";
 import "./style.scss";
 import { AiOutlineFacebook, AiOutlineInstagram, AiOutlineLinkedin } from "react-icons/ai";
 import { FaInstagram } from "react-icons/fa";
@@ -7,16 +7,26 @@ import { AiOutlineGlobal } from "react-icons/ai";
 import { AiOutlineUser } from "react-icons/ai";
 import { AiOutlineMenu } from "react-icons/ai";
 import { AiOutlinePhone } from "react-icons/ai";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import {ROUTERS} from "../../../../../utils/router";
 import { CiMail } from "react-icons/ci";
 import { formatter } from "../../../../../utils/fomater";
 import { AiOutlineShoppingCart } from "react-icons/ai";
 
+export const categories = [
+    "Thịt tươi",
+    "Rau củ",
+    "Nước trái cây",
+    "Trái cây",
+    "Hải sản",
+];
+
 const Header = () => {
-    const[isShowCategories, setShowCategories] = useState(true);
+    const location = useLocation()
     const[isShowHumberger, setShowHumberger] = useState(false);
-    const [menus] = useState([
+    const [isHome, setIsHome] = useState(location.pathname.length <= 1);
+    const[isShowCategories, setShowCategories] = useState(isHome);
+    const [menus, setMenus] = useState([
         {
             name:"Trang chủ",
             path: ROUTERS.USER.HOME,
@@ -53,6 +63,12 @@ const Header = () => {
             path: ROUTERS.USER.HOME,
         },
     ])
+
+    useEffect(() => {
+        const isHome = location.pathname.length <= 1 
+        setIsHome(isHome);
+        setShowCategories(isHome);
+    }, [location]);
 
     return (
         <>
@@ -225,11 +241,9 @@ const Header = () => {
                     </div>
                     {isShowCategories && (
                     <ul className={isShowCategories ? "" : "hidden"}>
-                        <li><Link to={""}>Thịt tươi</Link></li>
-                        <li><Link to={""}>Rau củ</Link></li>
-                        <li><Link to={""}>Nước trái cây</Link></li>
-                        <li><Link to={""}>Trái cây</Link></li>
-                        <li><Link to={""}>Hải sản</Link></li>
+                    {categories.map((category, key) =>  (
+                        <li key={key}><Link to={ROUTERS.USER.PRODUCTS}>{category}</Link></li>
+                    ))}
                     </ul>
                     )
                     }
@@ -253,16 +267,18 @@ const Header = () => {
                             </div>
                         </div>
                     </div>
+                    {isHome && (
                     <div className="hero_item">
-                        <div className="hero_text">
-                            <span>Trái cây tươi</span>
-                            <h2>Rau quả <br /> sạch 100%</h2>
-                            <p>Miễn phí giao hàng tận nơi</p>
-                            <Link to="" className="primary-btn">
-                                Mua ngay
-                            </Link>
-                        </div>
-                    </div>
+                         <div className="hero_text">
+                             <span>Trái cây tươi</span>
+                             <h2>Rau quả <br /> sạch 100%</h2>
+                             <p>Miễn phí giao hàng tận nơi</p>
+                             <Link to="" className="primary-btn">
+                             Mua ngay
+                              </Link>
+                         </div>
+                    </div>   
+                    )}
                 </div>
             </div>
         </div>    
